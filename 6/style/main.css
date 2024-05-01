@@ -1,0 +1,15 @@
+.block {
+    padding: 20px;
+    border: 1px solid #7c7c7c;
+    border-radius: 5px;
+}
+
+body {
+    font-size: 30px;
+}
+
+.text2 {
+    border: inherit;
+    border-radius: inherit;
+    padding: 10px;
+}
