@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 59</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            margin: 0;
+        }
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+        .container{
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 50px 0;
+        }
+        .search{
+            display: flex;
+            gap: 6px;
+        }
+        .list > li{
+            cursor: pointer;
+        }
+        .list__element--active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search">
+            <input class="search__input" type="text" name="" id="">
+            <button class="search__btn" type="button">Найти</button>
+            <button class="search__clear" type="button">Очистить</button>
+        </div>
+        <ul class="list"></ul>
+    </div>
+
+    <script>
+        const words = ['День','Том','Гость','Выборы','Солнце','Ход','Речь','Смена','Бизнес','Качество','Республика','Сердце','Администрация','Поезд','Работник','Ресурс','Часть','Изучение','Бок','Понимание','Животное','Утро','Правда','Личность','Звонок','Урок','Командир','Американец','Заседание','Образ'];
+
+        const list = document.querySelector('.list')
+        const input = document.querySelector('.search__input')
+        const searchBtn = document.querySelector('.search__btn');
+        const clearBtn = document.querySelector('.search__clear');
+
+        // Функция для создания списка элементов
+        function createListItems(words) {
+            // Очищаем содержимое списка
+            list.innerHTML = '';
+
+            words.forEach(word => {
+                const li = document.createElement('li');
+                li.textContent = word;
+                list.appendChild(li);
+            });
+        }
+
+        // Инициализация списка при загрузке страницы
+        createListItems(words);
+
+        // Функция для фильтрации списка по введенному тексту
+        function filterList() {
+            const searchText = input.value.trim().toLowerCase();
+            const filteredWords = words.filter(word => word.toLowerCase().includes(searchText));
+            createListItems(filteredWords);
+        }
+
+        // Обработчик клика на кнопку "Найти"
+        searchBtn.addEventListener('click', filterList);
+
+        // Обработчик клика на кнопку "Очистить"
+        clearBtn.addEventListener('click', () => {
+            input.value = ''; // Очищаем поле ввода
+            createListItems(words); // Показываем весь список слов
+        });
+
+        // Добавляем обработчик клика на элемент ul (делегирование событий)
+        list.addEventListener('click', event => {
+            const target = event.target;
+            if (target.tagName === 'LI') {
+                target.classList.toggle('list__element--active');
+            }
+        });
+    </script>
+</body>
+</html>
