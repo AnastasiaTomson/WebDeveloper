@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 39</title>
+</head>
+<body>
+    <script>
+        const products = [
+            {
+                id: 1,
+                name: 'Яблоки',
+                price: 15,
+            },
+            {
+                id: 2,
+                name: 'Бананы',
+                price: 30,
+            },
+            {
+                id: 3,
+                name: 'Вишня',
+                price: 150.23,
+            },
+            {
+                id: 4,
+                name: 'Дыня',
+                price: 85.5,
+            },
+            {
+                id: 5,
+                name: 'Тыква',
+                price: 235.99,
+            }
+        ];
+
+        const cart = [
+            {
+                id: 4,
+                quantity: 3
+            },
+            {
+                id: 5,
+                quantity: 2
+            },
+            {
+                id: 3,
+                quantity: 10
+            }
+        ];
+
+
+        function getTotal(cart, products) {
+            // Используем метод reduce для подсчета общей стоимости товаров в корзине
+            const total = cart.reduce((summ, item) => {
+                // Находим товар в списке products по его id
+                const product = products.find((prod) => prod.id === item.id);
+
+                // Если товар найден, добавляем его стоимость, умноженную на количество, к общей сумме
+                if (product) {
+                    summ += product.price * item.quantity;
+                }
+
+                return summ;
+            }, 0); // Начальное значение равно 0
+
+            // Возвращаем общую сумму, отформатированную как строка с разделителями тысяч
+            return total.toLocaleString('ru-RU', {
+                style: 'currency',
+                currency: 'RUB',
+                minimumFractionDigits: 2,
+            });
+        }
+
+        const result = getTotal(cart, products);
+        console.log(result);
+    </script>
+</body>
+</html>
